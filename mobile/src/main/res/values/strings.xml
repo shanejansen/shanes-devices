@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Shane\'s Devices</string>
+    <string name="action_settings">Settings</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_pin">Device Pin</string>
+    <string name="pin">Pin: %1$s</string>
+</resources>
