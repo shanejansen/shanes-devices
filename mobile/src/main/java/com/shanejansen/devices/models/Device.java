@@ -1,4 +1,4 @@
-package com.shanejansen.devices.data;
+package com.shanejansen.devices.models;
 
 /**
  * Created by Shane Jansen on 3/6/16.

@@ -1,4 +1,4 @@
-package com.shanejansen.devices.data;
+package com.shanejansen.devices.common;
 
 import android.util.Log;
 
@@ -6,8 +6,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 import com.google.gson.Gson;
-import com.shanejansen.devices.view.MainActivity;
-import com.shanejansen.devices.view.MainFragment;
+import com.shanejansen.devices.models.Device;
+import com.shanejansen.devices.MainActivity;
+import com.shanejansen.devices.main.MainFragment;
 
 import java.util.List;
 

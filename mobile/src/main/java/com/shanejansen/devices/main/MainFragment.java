@@ -1,39 +1,47 @@
-package com.shanejansen.devices.view;
+package com.shanejansen.devices.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.shanejansen.devices.R;
-import com.shanejansen.devices.data.DataManager;
-import com.shanejansen.devices.data.Device;
+import com.shanejansen.devices.common.StateMaintainer;
+import com.shanejansen.devices.common.fragments.BaseFragment;
+import com.shanejansen.devices.models.Device;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
 
 /**
  * Created by Shane Jansen on 3/6/16.
  */
-public class MainFragment extends ListFragment {
+public class MainFragment extends BaseFragment implements MvpMain.ViewForPresenterOps {
     // Constants
     public static final String WEAR_GET_STATE = "get_state";
     public static final String WEAR_SET_STATE = "set_state";
 
     // Data
-    private DevicesAdapter mDevicesAdapter;
-    private List<Device> mDevices;
+    private MvpMain.PresenterForViewOps mPresenter;
+    private StateMaintainer mStateMaintainer;
+
+    // Views
+    @Bind(R.id.rvList) RecyclerView mRvList;
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_main;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDevices = new ArrayList<>();
+        /*mDevices = new ArrayList<>();
         mDevicesAdapter = new DevicesAdapter(getActivity(), mDevices, new DevicesAdapter.DevicesAdapterInterface() {
             @Override
             public void switchToggled(int index, boolean isChecked) {
@@ -43,18 +51,16 @@ public class MainFragment extends ListFragment {
             }
         });
         setHasOptionsMenu(true);
-        setListAdapter(mDevicesAdapter);
+        setListAdapter(mDevicesAdapter);*/
+
+        mStateMaintainer = new StateMaintainer(getChildFragmentManager(), MainFragment.class.getName());
+        setupMvp();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        refreshDevices();
+    protected void onViewInflated(View v, Bundle savedInstanceState) {
+        super.onViewInflated(v, savedInstanceState);
+        //refreshDevices();
     }
 
     @Override
@@ -67,14 +73,14 @@ public class MainFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                refreshDevices();
+                //refreshDevices();
                 break;
         }
         return super.onOptionsItemSelected(item);
 
     }
 
-    private void refreshDevices() {
+    /*private void refreshDevices() {
         setListShown(false);
         DataManager.refreshDevices(new DataManager.NetworkInf<List<Device>>() {
             @Override
@@ -92,9 +98,9 @@ public class MainFragment extends ListFragment {
                 }
             }
         });
-    }
+    }*/
 
-    private void activateDevice(Device device, boolean state) {
+    /*private void activateDevice(Device device, boolean state) {
         DataManager.activateDevice(device.getPin(), state,
                 new DataManager.NetworkInf<String>() {
                     @Override
@@ -108,5 +114,47 @@ public class MainFragment extends ListFragment {
                         }
                     }
                 });
+    }*/
+
+    // TODO
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+
+    }
+
+    @Override
+    public Context getAppContext() {
+        return null;
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return null;
+    }
+
+    private void setupMvp() {
+        if (mStateMaintainer.firstTimeIn()) {
+            MainPresenter presenter = new MainPresenter(this);
+            MainModel model = new MainModel(presenter);
+            presenter.setModel(model);
+            mStateMaintainer.put(presenter);
+            mStateMaintainer.put(model);
+            mPresenter = presenter;
+        }
+        else {
+            mPresenter = mStateMaintainer.get(MainPresenter.class.getName());
+            mPresenter.setView(this);
+        }
     }
 }

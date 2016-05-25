@@ -1,4 +1,4 @@
-package com.shanejansen.devices.view;
+package com.shanejansen.devices.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.shanejansen.devices.R;
-import com.shanejansen.devices.data.Device;
+import com.shanejansen.devices.models.Device;
 
 import java.util.List;
 
