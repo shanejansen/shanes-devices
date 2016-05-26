@@ -11,6 +11,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Shane Jansen on 5/25/16.
+ *
+ * Singleton used to maintain/preserve Presenters when an Activity is
+ * destroyed.
  */
 public class PresenterMaintainer {
     private static final String KEY_PRESENTER_ID = "presenter_id";
@@ -19,11 +22,11 @@ public class PresenterMaintainer {
     private final AtomicLong mCurrentId;
     private final Cache<Long, BasePresenter> mPresenters;
 
-    PresenterMaintainer(long maxSize, long experationValue, TimeUnit expirationUnit) {
+    PresenterMaintainer(long maxSize, long expirationValue, TimeUnit expirationUnit) {
         mCurrentId = new AtomicLong();
         mPresenters = CacheBuilder.newBuilder()
                 .maximumSize(maxSize)
-                .expireAfterWrite(experationValue, expirationUnit)
+                .expireAfterWrite(expirationValue, expirationUnit)
                 .build();
     }
 

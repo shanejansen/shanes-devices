@@ -9,14 +9,10 @@ import java.util.List;
 /**
  * Created by Shane Jansen on 5/24/16.
  */
-public class MainModel implements MvpMain.ModelForPresenterOps {
-    // Data
-    private MvpMain.PresenterForModelOps mPresenter;
+public class MainModel extends BaseModel<MainPresenter> implements MvpMain.ModelForPresenterOps {
     private List<Device> mDevices;
 
-    public MainModel(MvpMain.PresenterForModelOps presenter) {
-        mPresenter = presenter;
-    }
+    public MainModel() {}
 
     @Override
     public void loadData(final BaseModel.Callback callback) {
@@ -46,13 +42,6 @@ public class MainModel implements MvpMain.ModelForPresenterOps {
         }
         catch (NullPointerException e) {
             return -1;
-        }
-    }
-
-    @Override
-    public void unbindPresenter(boolean isConfigurationChange) {
-        if (!isConfigurationChange) {
-            mPresenter = null;
         }
     }
 }

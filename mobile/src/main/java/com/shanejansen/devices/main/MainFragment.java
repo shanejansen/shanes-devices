@@ -1,5 +1,6 @@
 package com.shanejansen.devices.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.common.PresenterMaintainer;
@@ -24,8 +26,7 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
     public static final String WEAR_SET_STATE = "set_state";
 
     // Data
-    private MvpMain.PresenterForViewOps mPresenter;
-    private PresenterMaintainer mPresenterMaintainer;
+    private MainPresenter mPresenter;
 
     // Views
     @Bind(R.id.rvList) RecyclerView mRvList;
@@ -50,7 +51,20 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
         setHasOptionsMenu(true);
         setListAdapter(mDevicesAdapter);*/
 
-        if (savedInstanceState == null) mPresenter = new MainPresenter(this);
+        setHasOptionsMenu(true);
+
+        // TODO: abstract out?
+        if (savedInstanceState == null) {
+            mPresenter = new MainPresenter();
+            MainModel model = new MainModel();
+            mPresenter.bindView(this);
+            mPresenter.bindModel(model);
+            model.bindPresenter(mPresenter);
+        }
+        else {
+            mPresenter = PresenterMaintainer.getInstance().restorePresenter(savedInstanceState);
+            mPresenter.bindView(this);
+        }
 
         /*
         private void setupMvp() {
@@ -71,6 +85,12 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        PresenterMaintainer.getInstance().savePresenter(mPresenter, outState);
+    }
+
+    @Override
     protected void onViewInflated(View v, Bundle savedInstanceState) {
         super.onViewInflated(v, savedInstanceState);
         //refreshDevices();
@@ -86,11 +106,18 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                //refreshDevices();
+                mPresenter.clickedRefresh();
                 break;
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    // TODO: abstract out
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unbind(getActivity().isChangingConfigurations());
     }
 
     /*private void refreshDevices() {
@@ -129,8 +156,6 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
                 });
     }*/
 
-    // TODO
-
     @Override
     public void showProgress() {
 
@@ -147,12 +172,17 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
     }
 
     @Override
-    public Context getAppContext() {
-        return null;
+    public void showToast(String message) {
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public Context getActivityContext() {
-        return null;
+    public Context getAppContext() {
+        return getActivity().getApplicationContext();
+    }
+
+    @Override
+    public Activity getActivityContext() {
+        return getActivity();
     }
 }

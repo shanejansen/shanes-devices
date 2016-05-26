@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.shanejansen.devices.R;
 import com.shanejansen.devices.common.BaseActivity;
 import com.shanejansen.devices.common.DataManager;
 import com.shanejansen.devices.main.MainFragment;

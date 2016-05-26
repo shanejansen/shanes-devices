@@ -6,9 +6,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 import com.google.gson.Gson;
-import com.shanejansen.devices.models.Device;
 import com.shanejansen.devices.MainActivity;
 import com.shanejansen.devices.main.MainFragment;
+import com.shanejansen.devices.models.Device;
 
 import java.util.List;
 

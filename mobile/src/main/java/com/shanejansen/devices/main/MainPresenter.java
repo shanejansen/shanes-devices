@@ -1,73 +1,39 @@
 package com.shanejansen.devices.main;
 
-import android.content.Context;
+import com.shanejansen.devices.common.mvp.BasePresenter;
 
-import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Shane Jansen on 5/24/16.
  */
-public class MainPresenter implements MvpMain.PresenterForViewOps, MvpMain.PresenterForModelOps {
+public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, MainModel> implements MvpMain.PresenterForViewOps, MvpMain.PresenterForModelOps {
     // Data
-    private WeakReference<MvpMain.ViewForPresenterOps> mView;
-    private MvpMain.ModelForPresenterOps mModel;
+    private int mTest;
 
-    public MainPresenter(MvpMain.ViewForPresenterOps view) {
-        mView = new WeakReference<>(view);
-    }
+    public MainPresenter() {}
 
     @Override
-    public Context getAppContext() {
-        try {
-            return getView().getAppContext();
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
-    }
-
-    @Override
-    public Context getActivityContext() {
-        try {
-            return getView().getActivityContext();
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
+    protected void init() {
+        getView().showToast("Inited");
     }
 
     @Override
     public void clickedRefresh() {
-        // TODO
-    }
-
-    @Override
-    public void unbindView(boolean isConfigurationChange) {
-        mView = null;
-        mModel.unbindPresenter(isConfigurationChange);
-        if (!isConfigurationChange) {
-            // Nulls Model when the Activity destruction is permanent
-            mModel = null;
-        }
-    }
-
-    @Override
-    public void bindView(MvpMain.ViewForPresenterOps view) {
-        mView = new WeakReference<>(view);
-    }
-
-    private MvpMain.ViewForPresenterOps getView() throws NullPointerException {
-        if (mView != null) return mView.get();
-        else throw new NullPointerException("View in unavailable");
-    }
-
-    /**
-     * Only called once
-     * @param model
-     */
-    @Override
-    public void bindModel(MvpMain.ModelForPresenterOps model) {
-        mModel = model;
-        // TODO: loadData();
+        mTest = 0;
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getActivityContext().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTest++;
+                        getView().showToast("Refresh clicked: " + mTest);
+                    }
+                });
+            }
+        }, 0, 5000);
     }
 }
