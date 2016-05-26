@@ -10,11 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.shanejansen.devices.R;
-import com.shanejansen.devices.common.StateMaintainer;
+import com.shanejansen.devices.common.PresenterMaintainer;
 import com.shanejansen.devices.common.fragments.BaseFragment;
-import com.shanejansen.devices.models.Device;
-
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -28,7 +25,7 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
 
     // Data
     private MvpMain.PresenterForViewOps mPresenter;
-    private StateMaintainer mStateMaintainer;
+    private PresenterMaintainer mPresenterMaintainer;
 
     // Views
     @Bind(R.id.rvList) RecyclerView mRvList;
@@ -53,8 +50,24 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
         setHasOptionsMenu(true);
         setListAdapter(mDevicesAdapter);*/
 
-        mStateMaintainer = new StateMaintainer(getChildFragmentManager(), MainFragment.class.getName());
-        setupMvp();
+        if (savedInstanceState == null) mPresenter = new MainPresenter(this);
+
+        /*
+        private void setupMvp() {
+            if (mPresenterMaintainer.firstTimeIn()) {
+                MainPresenter presenter = new MainPresenter(this);
+                MainModel model = new MainModel(presenter);
+                presenter.bindModel(model);
+                mPresenterMaintainer.put(presenter);
+                mPresenterMaintainer.put(model);
+                mPresenter = presenter;
+            }
+            else {
+                mPresenter = mPresenterMaintainer.get(MainPresenter.class.getName());
+                mPresenter.bindView(this);
+            }
+        }
+         */
     }
 
     @Override
@@ -141,20 +154,5 @@ public class MainFragment extends BaseFragment implements MvpMain.ViewForPresent
     @Override
     public Context getActivityContext() {
         return null;
-    }
-
-    private void setupMvp() {
-        if (mStateMaintainer.firstTimeIn()) {
-            MainPresenter presenter = new MainPresenter(this);
-            MainModel model = new MainModel(presenter);
-            presenter.setModel(model);
-            mStateMaintainer.put(presenter);
-            mStateMaintainer.put(model);
-            mPresenter = presenter;
-        }
-        else {
-            mPresenter = mStateMaintainer.get(MainPresenter.class.getName());
-            mPresenter.setView(this);
-        }
     }
 }

@@ -2,8 +2,6 @@ package com.shanejansen.devices.main;
 
 import android.content.Context;
 
-import com.shanejansen.devices.common.mvp.BaseMvp;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -44,17 +42,17 @@ public class MainPresenter implements MvpMain.PresenterForViewOps, MvpMain.Prese
     }
 
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {
+    public void unbindView(boolean isConfigurationChange) {
         mView = null;
-        mModel.onDestroy(isChangingConfiguration);
-        if (!isChangingConfiguration) {
+        mModel.unbindPresenter(isConfigurationChange);
+        if (!isConfigurationChange) {
             // Nulls Model when the Activity destruction is permanent
             mModel = null;
         }
     }
 
     @Override
-    public void setView(MvpMain.ViewForPresenterOps view) {
+    public void bindView(MvpMain.ViewForPresenterOps view) {
         mView = new WeakReference<>(view);
     }
 
@@ -63,8 +61,13 @@ public class MainPresenter implements MvpMain.PresenterForViewOps, MvpMain.Prese
         else throw new NullPointerException("View in unavailable");
     }
 
-    public void setModel(MvpMain.ModelForPresenterOps model) {
+    /**
+     * Only called once
+     * @param model
+     */
+    @Override
+    public void bindModel(MvpMain.ModelForPresenterOps model) {
         mModel = model;
-        // TODO
+        // TODO: loadData();
     }
 }

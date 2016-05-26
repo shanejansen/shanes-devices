@@ -50,8 +50,8 @@ public class MainModel implements MvpMain.ModelForPresenterOps {
     }
 
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        if (!isChangingConfiguration) {
+    public void unbindPresenter(boolean isConfigurationChange) {
+        if (!isConfigurationChange) {
             mPresenter = null;
         }
     }

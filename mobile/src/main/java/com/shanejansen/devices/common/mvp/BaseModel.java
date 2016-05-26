@@ -5,7 +5,7 @@ package com.shanejansen.devices.common.mvp;
  */
 public abstract class BaseModel implements BaseMvp.ModelForPresenterOps {
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {
+    public void unbindPresenter(boolean isConfigurationChange) {
         // TODO
     }
 

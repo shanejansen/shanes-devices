@@ -22,7 +22,7 @@ public interface BaseMvp {
      * that are available for the view.
      */
     interface PresenterForViewOps {
-        void onDestroy(boolean isChangingConfiguration);
+        void unbindView(boolean isConfigurationChange);
     }
 
     /**
@@ -30,7 +30,7 @@ public interface BaseMvp {
      * that are available for the presenter.
      */
     interface ModelForPresenterOps {
-        void onDestroy(boolean isChangingConfiguration);
+        void unbindPresenter(boolean isConfigurationChange);
     }
 
     /**

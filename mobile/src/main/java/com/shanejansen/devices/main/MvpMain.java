@@ -16,7 +16,8 @@ public interface MvpMain {
 
     interface PresenterForViewOps extends BaseMvp.PresenterForViewOps {
         void clickedRefresh();
-        void setView(ViewForPresenterOps view);
+        void bindView(ViewForPresenterOps view);
+        void bindModel(ModelForPresenterOps model);
     }
 
     interface ModelForPresenterOps extends BaseMvp.ModelForPresenterOps {
