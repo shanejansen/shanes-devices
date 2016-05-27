@@ -22,39 +22,39 @@ public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, Mv
 
     @Override
     protected void initView() {
-        getView().showProgress();
-        getViewModel().loadDevices();
+        view().showProgress();
+        viewModel().loadDevices();
     }
 
     @Override
     protected void updateView() {
-        if (getViewModel().getDeviceCount() != -1) {
-            getView().notifyDevicesChanged(getViewModel().getDevices());
+        if (viewModel().getDeviceCount() != -1) {
+            view().notifyDevicesChanged(viewModel().getDevices());
         }
     }
 
     @Override
     public void clickedRefresh() {
         //startTestTimer();
-        getView().showProgress();
-        getViewModel().loadDevices();
+        view().showProgress();
+        viewModel().loadDevices();
     }
 
     @Override
     public void toggledDeviceSwitch(int index, boolean isChecked) {
-        Device device = getViewModel().getDevices().get(index);
+        Device device = viewModel().getDevices().get(index);
         device.setIsOn(isChecked);
-        getViewModel().activateDevice(device, isChecked);
+        viewModel().activateDevice(device, isChecked);
     }
 
     @Override
     public void onLoadedDevices(List<Device> devices) {
-        getView().hideProgress();
+        view().hideProgress();
         if (devices == null) {
-            getView().showToast("Could not get the list of devices.");
+            view().showToast("Could not get the list of devices.");
         }
         else {
-            getView().notifyDevicesChanged(devices);
+            view().notifyDevicesChanged(devices);
         }
     }
 
@@ -67,7 +67,7 @@ public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, Mv
                     @Override
                     public void run() {
                         mTest++;
-                        getView().showToast("Refresh clicked: " + mTest);
+                        view().showToast("Refresh clicked: " + mTest);
                     }
                 });
             }

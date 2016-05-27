@@ -41,7 +41,7 @@ public abstract class BasePresenter <V, M> {
 
     public Context getAppContext() {
         try {
-            return ((BaseView) getView()).getAppContext();
+            return ((BaseView) view()).getAppContext();
         }
         catch (NullPointerException e) {
             return null;
@@ -50,7 +50,7 @@ public abstract class BasePresenter <V, M> {
 
     public Activity getActivityContext() {
         try {
-            return ((BaseView) getView()).getActivityContext();
+            return ((BaseView) view()).getActivityContext();
         }
         catch (NullPointerException e) {
             return null;
@@ -67,7 +67,7 @@ public abstract class BasePresenter <V, M> {
         mView = new WeakReference<>(view);
     }
 
-    protected V getView() throws NullPointerException {
+    protected V view() throws NullPointerException {
         if (mView != null) return mView.get();
         else throw new NullPointerException("View in unavailable");
     }
@@ -76,7 +76,7 @@ public abstract class BasePresenter <V, M> {
         mViewModel = model;
     }
 
-    protected M getViewModel() throws NullPointerException {
+    protected M viewModel() throws NullPointerException {
         if (mViewModel != null) return mViewModel;
         else throw new NullPointerException("ViewModel is unavailable");
     }
