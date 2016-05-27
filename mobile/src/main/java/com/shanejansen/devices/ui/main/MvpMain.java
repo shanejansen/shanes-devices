@@ -35,7 +35,8 @@ public interface MvpMain {
      */
     interface ModelForPresenterOps {
         void loadDevices();
-        Device getDevice(int index);
+        void activateDevice(Device device, boolean isChecked);
+        List<Device> getDevices();
         int getDeviceCount();
     }
 

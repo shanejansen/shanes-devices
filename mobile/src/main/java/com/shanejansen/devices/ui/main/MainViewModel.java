@@ -26,13 +26,18 @@ public class MainViewModel extends BaseViewModel<MvpMain.PresenterForModelOps> i
     }
 
     @Override
-    public Device getDevice(int index) {
-        try {
-            return mDevices.get(index);
-        }
-        catch (NullPointerException e) {
-            return null;
-        }
+    public void activateDevice(Device device, boolean isChecked) {
+        DataManager.activateDevice(device.getPin(), isChecked, new DataManager.NetworkInf<String>() {
+            @Override
+            public void onCompleted(String result) {
+                //
+            }
+        });
+    }
+
+    @Override
+    public List<Device> getDevices() {
+        return mDevices;
     }
 
     @Override

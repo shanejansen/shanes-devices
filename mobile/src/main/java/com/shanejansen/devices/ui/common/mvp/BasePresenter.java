@@ -11,14 +11,33 @@ import java.lang.ref.WeakReference;
  * Base Presenter for the MVP architecture.
  */
 public abstract class BasePresenter <V, M> {
+    private boolean mInitialized;
     private WeakReference<V> mView;
     private M mViewModel;
+
+    public BasePresenter() {
+        mInitialized = false;
+    }
 
     /**
      * Called only once after the Model is bound. Will not be called again even
      * if the Presenter is restored.
      */
-    protected abstract void init();
+    protected abstract void initView();
+
+    /**
+     * Called each time the view is ready to be updated. Should only be called once
+     * the View and ViewModel are bound.
+     */
+    protected abstract void updateView();
+
+    public void viewReady() {
+        if (mInitialized) updateView();
+        else {
+            initView();
+            mInitialized = true;
+        }
+    }
 
     public Context getAppContext() {
         try {
@@ -55,7 +74,6 @@ public abstract class BasePresenter <V, M> {
 
     public void bindModel(M model) {
         mViewModel = model;
-        init();
     }
 
     protected M getViewModel() throws NullPointerException {

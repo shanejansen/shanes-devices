@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.models.Device;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.shanejansen.devices.ui.common.mvp.MvpRecyclerAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,17 +19,16 @@ import butterknife.ButterKnife;
 /**
  * Created by Shane Jansen on 3/6/16.
  */
-public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHolder> {
+public class DevicesAdapter extends MvpRecyclerAdapter<Device, DevicesAdapter.ViewHolder> {
     // Data
     private Context mContext;
-    private List<Device> mDevices;
     private DevicesAdapterInterface mDevicesAdapterInterface;
     private LayoutInflater mInflater;
 
     public DevicesAdapter(Context context, DevicesAdapterInterface devicesAdapterInterface) {
+        super();
         this.mContext = context;
         this.mDevicesAdapterInterface = devicesAdapterInterface;
-        mDevices = new ArrayList<>();
         this.mInflater = LayoutInflater.from(context);
     }
 
@@ -43,9 +40,9 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.tvName.setText(mDevices.get(position).getName());
-        holder.tvPin.setText(mContext.getResources().getString(R.string.pin, mDevices.get(position).getPin()));
-        holder.swState.setChecked(mDevices.get(position).isOn());
+        holder.tvName.setText(getData().get(position).getName());
+        holder.tvPin.setText(mContext.getResources().getString(R.string.pin, getData().get(position).getPin()));
+        holder.swState.setChecked(getData().get(position).isOn());
         holder.swState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -56,18 +53,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
                 }
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDevices.size();
-    }
-
-    // TODO: Abstract out. See CounterAdapter in arch-example.
-    public void clearAndAddAll(List<Device> devices) {
-        mDevices.clear();
-        mDevices.addAll(devices);
-        notifyDataSetChanged();
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {

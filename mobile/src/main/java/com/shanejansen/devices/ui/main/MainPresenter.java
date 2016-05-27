@@ -15,23 +15,50 @@ public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, Mv
     // Data
     private int mTest;
 
-    public MainPresenter() {}
+    public MainPresenter() {
+        super();
+        mTest = 0;
+    }
 
     @Override
-    protected void init() {
+    protected void initView() {
         getView().showProgress();
         getViewModel().loadDevices();
     }
 
     @Override
-    public void bindView(MvpMain.ViewForPresenterOps view) {
-        super.bindView(view);
-        // TODO
+    protected void updateView() {
+        if (getViewModel().getDeviceCount() != -1) {
+            getView().notifyDevicesChanged(getViewModel().getDevices());
+        }
     }
 
     @Override
     public void clickedRefresh() {
-        mTest = 0;
+        //startTestTimer();
+        getView().showProgress();
+        getViewModel().loadDevices();
+    }
+
+    @Override
+    public void toggledDeviceSwitch(int index, boolean isChecked) {
+        Device device = getViewModel().getDevices().get(index);
+        device.setIsOn(isChecked);
+        getViewModel().activateDevice(device, isChecked);
+    }
+
+    @Override
+    public void onLoadedDevices(List<Device> devices) {
+        getView().hideProgress();
+        if (devices == null) {
+            getView().showToast("Could not get the list of devices.");
+        }
+        else {
+            getView().notifyDevicesChanged(devices);
+        }
+    }
+
+    private void startTestTimer() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -45,21 +72,5 @@ public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, Mv
                 });
             }
         }, 0, 5000);
-    }
-
-    @Override
-    public void toggledDeviceSwitch(int index, boolean isChecked) {
-
-    }
-
-    @Override
-    public void onLoadedDevices(List<Device> devices) {
-        getView().hideProgress();
-        if (devices == null) {
-            getView().showToast("Could not get the list of devices.");
-        }
-        else {
-            getView().notifyDevicesChanged(devices);
-        }
     }
 }
