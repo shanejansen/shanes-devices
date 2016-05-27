@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common;
+package com.shanejansen.devices.ui.common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.shanejansen.devices.R;
-import com.shanejansen.devices.common.fragments.TransactionInterface;
+import com.shanejansen.devices.ui.common.fragments.TransactionInterface;
 
 /**
  * Created by Shane Jansen on 3/6/16.

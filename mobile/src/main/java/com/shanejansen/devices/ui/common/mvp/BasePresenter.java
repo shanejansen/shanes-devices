@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common.mvp;
+package com.shanejansen.devices.ui.common.mvp;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,12 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by Shane Jansen on 5/26/16.
+ *
  * Base Presenter for the MVP architecture.
  */
-public abstract class BasePresenter <V extends BaseView, M extends BaseModel> {
+public abstract class BasePresenter <V, M> {
     private WeakReference<V> mView;
-    private M mModel;
+    private M mViewModel;
 
     /**
      * Called only once after the Model is bound. Will not be called again even
@@ -21,7 +22,7 @@ public abstract class BasePresenter <V extends BaseView, M extends BaseModel> {
 
     public Context getAppContext() {
         try {
-            return getView().getAppContext();
+            return ((BaseView) getView()).getAppContext();
         }
         catch (NullPointerException e) {
             return null;
@@ -30,7 +31,7 @@ public abstract class BasePresenter <V extends BaseView, M extends BaseModel> {
 
     public Activity getActivityContext() {
         try {
-            return getView().getActivityContext();
+            return ((BaseView) getView()).getActivityContext();
         }
         catch (NullPointerException e) {
             return null;
@@ -39,8 +40,8 @@ public abstract class BasePresenter <V extends BaseView, M extends BaseModel> {
 
     public void unbind(boolean isConfigurationChange) {
         mView = null;
-        mModel.unbindPresenter(isConfigurationChange);
-        if (!isConfigurationChange) mModel = null;
+        ((BaseViewModel) mViewModel).unbindPresenter(isConfigurationChange);
+        if (!isConfigurationChange) mViewModel = null;
     }
 
     public void bindView(V view) {
@@ -53,12 +54,12 @@ public abstract class BasePresenter <V extends BaseView, M extends BaseModel> {
     }
 
     public void bindModel(M model) {
-        mModel = model;
+        mViewModel = model;
         init();
     }
 
-    protected M getModel() throws NullPointerException {
-        if (mModel != null) return mModel;
-        else throw new NullPointerException("Model is unavailable");
+    protected M getViewModel() throws NullPointerException {
+        if (mViewModel != null) return mViewModel;
+        else throw new NullPointerException("ViewModel is unavailable");
     }
 }

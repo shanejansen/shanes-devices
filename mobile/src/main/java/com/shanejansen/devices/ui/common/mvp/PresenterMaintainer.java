@@ -1,10 +1,9 @@
-package com.shanejansen.devices.common;
+package com.shanejansen.devices.ui.common.mvp;
 
 import android.os.Bundle;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.shanejansen.devices.common.mvp.BasePresenter;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;

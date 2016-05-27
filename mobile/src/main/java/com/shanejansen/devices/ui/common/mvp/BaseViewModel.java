@@ -1,11 +1,11 @@
-package com.shanejansen.devices.common.mvp;
+package com.shanejansen.devices.ui.common.mvp;
 
 /**
  * Created by Shane Jansen on 5/24/16.
  *
- * Base Model for the MVP architecture.
+ * Base ViewModel for the MVP architecture.
  */
-public abstract class BaseModel <P extends BasePresenter> {
+public abstract class BaseViewModel<P> {
     private P mPresenter;
 
     public void bindPresenter(P presenter) {
@@ -19,13 +19,5 @@ public abstract class BaseModel <P extends BasePresenter> {
     protected P getPresenter() throws NullPointerException {
         if (mPresenter != null) return mPresenter;
         else throw new NullPointerException("Presenter is unavailable");
-    }
-
-    /**
-     * Used as callbacks by the Presenter when the model is loading data.
-     */
-    public interface Callback {
-        void loadSuccess();
-        void loadFailure(String message);
     }
 }

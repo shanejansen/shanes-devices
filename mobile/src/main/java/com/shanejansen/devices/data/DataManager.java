@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common;
+package com.shanejansen.devices.data;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shanejansen.devices.MainActivity;
-import com.shanejansen.devices.models.Device;
+import com.shanejansen.devices.data.models.Device;
+import com.shanejansen.devices.ui.main.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;

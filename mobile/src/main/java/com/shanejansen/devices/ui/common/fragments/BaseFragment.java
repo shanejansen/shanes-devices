@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common.fragments;
+package com.shanejansen.devices.ui.common.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,8 +1,9 @@
-package com.shanejansen.devices.main;
+package com.shanejansen.devices.ui.main;
 
-import com.shanejansen.devices.common.mvp.BaseModel;
-import com.shanejansen.devices.common.mvp.BaseView;
-import com.shanejansen.devices.models.Device;
+import com.shanejansen.devices.data.models.Device;
+import com.shanejansen.devices.ui.common.mvp.BaseView;
+
+import java.util.List;
 
 /**
  * Created by Shane Jansen on 5/24/16.
@@ -15,7 +16,7 @@ public interface MvpMain {
     interface ViewForPresenterOps extends BaseView {
         void showProgress();
         void hideProgress();
-        void notifyDataSetChanged();
+        void notifyDevicesChanged(List<Device> devices);
         void showToast(String message);
     }
 
@@ -25,6 +26,7 @@ public interface MvpMain {
      */
     interface PresenterForViewOps {
         void clickedRefresh();
+        void toggledDeviceSwitch(int index, boolean isChecked);
     }
 
     /**
@@ -32,7 +34,7 @@ public interface MvpMain {
      * that are available for the presenter.
      */
     interface ModelForPresenterOps {
-        void loadData(BaseModel.Callback callback);
+        void loadDevices();
         Device getDevice(int index);
         int getDeviceCount();
     }
@@ -42,6 +44,6 @@ public interface MvpMain {
      * that are available for the model.
      */
     interface PresenterForModelOps {
-
+        void onLoadedDevices(List<Device> devices);
     }
 }

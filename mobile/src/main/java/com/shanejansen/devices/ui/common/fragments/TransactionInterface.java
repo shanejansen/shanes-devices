@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common.fragments;
+package com.shanejansen.devices.ui.common.fragments;
 
 import android.support.v4.app.Fragment;
 

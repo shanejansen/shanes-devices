@@ -1,4 +1,4 @@
-package com.shanejansen.devices.common.mvp;
+package com.shanejansen.devices.ui.common.mvp;
 
 import android.app.Activity;
 import android.content.Context;
