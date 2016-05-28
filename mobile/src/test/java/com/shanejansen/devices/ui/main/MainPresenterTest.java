@@ -13,10 +13,11 @@ import org.mockito.stubbing.Answer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doAnswer;
 
 /**
  * Created by Shane Jansen on 5/27/16.
@@ -40,7 +41,7 @@ public class MainPresenterTest {
 
         Device device = mock(Device.class);
         mDevices = new ArrayList<>();
-        mDevices.add(device);
+        mDevices.add(new Device());
 
         doAnswer(new Answer() {
             @Override
@@ -52,7 +53,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void shouldNotifyDevicesChangedWhenInitialized() throws Exception {
+    public void initView_shouldNotifyDevicesChanged() throws Exception {
         // When
         mPresenter.initView();
 
@@ -61,11 +62,26 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void shouldNotifyDevicesChangedWhenRefreshed() throws Exception {
+    public void clickedRefresh_shouldNotifyDevicesChanged() throws Exception {
         // When
         mPresenter.clickedRefresh();
 
         // Then
         verify(mMockView).notifyDevicesChanged(mDevices);
+    }
+
+    @Test
+    public void toggleDeviceSwitch_shouldActivateDevice() throws Exception {
+        // Given
+        int index = 0;
+        boolean isChecked = true;
+
+        // When
+        when(mMockModel.getDevices()).thenReturn(mDevices);
+        mPresenter.toggledDeviceSwitch(index, isChecked);
+
+        // Then
+        verify(mMockModel).activateDevice(mDevices.get(index), isChecked);
+        assertTrue(mDevices.get(index).isOn());
     }
 }

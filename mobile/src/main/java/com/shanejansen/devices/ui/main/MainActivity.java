@@ -7,6 +7,8 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.DataManager;
@@ -49,14 +51,17 @@ public class MainActivity extends BaseActivity {
         }
 
 
-        if (mGoogleApiClient == null) {
-            DataManager.setupGoogleApiClient(this, new DataManager.NetworkInf<GoogleApiClient>() {
-                @Override
-                public void onCompleted(GoogleApiClient result) {
-                    mGoogleApiClient = result;
-                }
-            });
+        try {
+            if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+                DataManager.setupGoogleApiClient(this, new DataManager.NetworkInf<GoogleApiClient>() {
+                    @Override
+                    public void onCompleted(GoogleApiClient result) {
+                        mGoogleApiClient = result;
+                    }
+                });
+            }
         }
+        catch (NullPointerException ignored) {}
     }
 
     @Override

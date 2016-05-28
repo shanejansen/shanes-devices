@@ -8,7 +8,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Shane Jansen on 5/27/16.
