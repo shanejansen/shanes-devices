@@ -83,7 +83,7 @@ public class MainFragment extends MvpFragment<MainViewModel, MvpMain.ViewForPres
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_refresh:
                 getPresenter().clickedRefresh();
                 break;
         }

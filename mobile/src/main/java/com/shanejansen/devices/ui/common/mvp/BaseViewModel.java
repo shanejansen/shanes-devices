@@ -16,7 +16,7 @@ public abstract class BaseViewModel<P> {
         if (!isConfigurationChange) mPresenter = null;
     }
 
-    protected P getPresenter() throws NullPointerException {
+    public P getPresenter() throws NullPointerException {
         if (mPresenter != null) return mPresenter;
         else throw new NullPointerException("Presenter is unavailable");
     }

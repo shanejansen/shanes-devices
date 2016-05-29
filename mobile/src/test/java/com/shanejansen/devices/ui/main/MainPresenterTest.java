@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +38,7 @@ public class MainPresenterTest {
         mPresenter.bindModel(mMockModel);
         mPresenter.bindView(mMockView);
 
-        Device device = mock(Device.class);
+        //Device device = mock(Device.class);
         mDevices = new ArrayList<>();
         mDevices.add(new Device());
 

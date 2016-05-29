@@ -16,6 +16,7 @@ import com.shanejansen.devices.ui.common.fragments.BaseFragment;
 public abstract class MvpFragment <M extends BaseViewModel, V extends BaseView, P extends BasePresenter> extends BaseFragment
         implements BaseView {
     private P mPresenter;
+    private M mTestModel;
 
     protected abstract M getMvpModel();
     protected abstract V getMvpView();
@@ -29,7 +30,8 @@ public abstract class MvpFragment <M extends BaseViewModel, V extends BaseView, 
             mPresenter = getMvpPresenter();
             M model = getMvpModel();
             mPresenter.bindView(getMvpView());
-            mPresenter.bindModel(model);
+            if (mTestModel == null) mPresenter.bindModel(model);
+            else mPresenter.bindModel(mTestModel);
             model.bindPresenter(mPresenter);
         }
         else {
@@ -68,7 +70,20 @@ public abstract class MvpFragment <M extends BaseViewModel, V extends BaseView, 
         return getActivity();
     }
 
-    protected P getPresenter() {
+    /**
+     * Returns the presenter for this view.
+     * @return
+     */
+    public P getPresenter() {
         return mPresenter;
+    }
+
+    /**
+     * Used for unit testing only. Sets the ViewModel so
+     * asynchronous methods can be overridden.
+     * @param testModel
+     */
+    public void setTestModel(M testModel) {
+        mTestModel = testModel;
     }
 }
