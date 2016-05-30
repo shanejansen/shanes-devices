@@ -1,6 +1,5 @@
 package com.shanejansen.devices.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -13,6 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.DataManager;
 import com.shanejansen.devices.ui.common.BaseActivity;
+import com.shanejansen.devices.ui.service.NfcService;
 
 public class MainActivity extends BaseActivity {
     // Constants
@@ -35,7 +35,9 @@ public class MainActivity extends BaseActivity {
         Intent intent = getIntent();
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (tag != null) {
-            Context context = getApplicationContext(); // Use this context for starting service
+            Intent i = new Intent(getApplicationContext(), NfcService.class);
+            i.putExtra("nfcTag", tag);
+            startService(i);
             finish();
             return;
         }
