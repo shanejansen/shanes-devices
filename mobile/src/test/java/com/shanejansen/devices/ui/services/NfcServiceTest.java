@@ -1,4 +1,4 @@
-package com.shanejansen.devices.ui.service;
+package com.shanejansen.devices.ui.services;
 
 /**
  * Created by Shane Jansen on 5/30/16.

@@ -8,8 +8,8 @@ import com.google.android.gms.wearable.WearableListenerService;
 import com.google.gson.Gson;
 import com.shanejansen.devices.data.DataManager;
 import com.shanejansen.devices.data.models.Device;
-import com.shanejansen.devices.ui.main.MainActivity;
-import com.shanejansen.devices.ui.main.MainFragment;
+import com.shanejansen.devices.ui.main.activities.MainActivity;
+import com.shanejansen.devices.ui.main.main.MainFragment;
 
 import java.util.List;
 

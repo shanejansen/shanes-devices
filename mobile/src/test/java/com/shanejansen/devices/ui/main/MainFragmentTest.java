@@ -6,6 +6,10 @@ import android.view.MenuItem;
 import com.shanejansen.devices.BuildConfig;
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.models.Device;
+import com.shanejansen.devices.ui.adapters.DevicesAdapter;
+import com.shanejansen.devices.ui.main.activities.MainActivity;
+import com.shanejansen.devices.ui.main.main.MainFragment;
+import com.shanejansen.devices.ui.main.main.MainViewModel;
 
 import org.junit.Before;
 import org.junit.Test;

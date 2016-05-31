@@ -1,4 +1,4 @@
-package com.shanejansen.devices.ui.service;
+package com.shanejansen.devices.ui.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,7 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.DataManager;
 import com.shanejansen.devices.data.models.Device;
-import com.shanejansen.devices.ui.main.MainActivity;
+import com.shanejansen.devices.ui.main.activities.MainActivity;
 
 import java.io.IOException;
 import java.util.List;

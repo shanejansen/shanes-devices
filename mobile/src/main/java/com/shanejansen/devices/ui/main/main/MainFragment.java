@@ -1,4 +1,4 @@
-package com.shanejansen.devices.ui.main;
+package com.shanejansen.devices.ui.main.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.models.Device;
+import com.shanejansen.devices.ui.adapters.DevicesAdapter;
 import com.shanejansen.devices.ui.common.mvp.MvpFragment;
 
 import java.util.List;

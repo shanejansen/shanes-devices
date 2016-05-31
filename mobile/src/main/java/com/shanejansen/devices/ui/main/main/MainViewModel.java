@@ -1,4 +1,4 @@
-package com.shanejansen.devices.ui.main;
+package com.shanejansen.devices.ui.main.main;
 
 import com.shanejansen.devices.data.DataManager;
 import com.shanejansen.devices.data.models.Device;

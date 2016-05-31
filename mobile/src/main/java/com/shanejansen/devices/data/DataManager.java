@@ -14,7 +14,7 @@ import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shanejansen.devices.data.models.Device;
-import com.shanejansen.devices.ui.main.MainActivity;
+import com.shanejansen.devices.ui.main.activities.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;

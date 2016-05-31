@@ -1,6 +1,9 @@
 package com.shanejansen.devices.ui.main;
 
 import com.shanejansen.devices.data.models.Device;
+import com.shanejansen.devices.ui.main.main.MainPresenter;
+import com.shanejansen.devices.ui.main.main.MainViewModel;
+import com.shanejansen.devices.ui.main.main.MvpMain;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.shanejansen.devices.ui.main;
+package com.shanejansen.devices.ui.main.activities;
 
 import android.content.Intent;
 import android.nfc.NfcAdapter;
@@ -12,7 +12,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.shanejansen.devices.R;
 import com.shanejansen.devices.data.DataManager;
 import com.shanejansen.devices.ui.common.BaseActivity;
-import com.shanejansen.devices.ui.service.NfcService;
+import com.shanejansen.devices.ui.main.main.MainFragment;
+import com.shanejansen.devices.ui.services.NfcService;
 
 public class MainActivity extends BaseActivity {
     // Constants
