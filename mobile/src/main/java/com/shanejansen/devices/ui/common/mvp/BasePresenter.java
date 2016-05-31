@@ -23,13 +23,13 @@ public abstract class BasePresenter <V, M> {
      * Called only once after the Model is bound. Will not be called again even
      * if the Presenter is restored.
      */
-    protected abstract void initView();
+    public abstract void initView();
 
     /**
      * Called each time the view is ready to be updated. Should only be called once
      * the View and ViewModel are bound.
      */
-    protected abstract void updateView();
+    public abstract void updateView();
 
     public void viewReady() {
         if (mInitialized) updateView();
@@ -67,7 +67,7 @@ public abstract class BasePresenter <V, M> {
         mView = new WeakReference<>(view);
     }
 
-    protected V view() throws NullPointerException {
+    public V view() throws NullPointerException {
         if (mView != null) return mView.get();
         else throw new NullPointerException("View in unavailable");
     }
@@ -76,7 +76,7 @@ public abstract class BasePresenter <V, M> {
         mViewModel = model;
     }
 
-    protected M viewModel() throws NullPointerException {
+    public M viewModel() throws NullPointerException {
         if (mViewModel != null) return mViewModel;
         else throw new NullPointerException("ViewModel is unavailable");
     }

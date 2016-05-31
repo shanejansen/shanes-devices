@@ -21,13 +21,13 @@ public class MainPresenter extends BasePresenter<MvpMain.ViewForPresenterOps, Mv
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         view().showProgress();
         viewModel().loadDevices();
     }
 
     @Override
-    protected void updateView() {
+    public void updateView() {
         if (viewModel().getDeviceCount() != -1) {
             view().notifyDevicesChanged(viewModel().getDevices());
         }

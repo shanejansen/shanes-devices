@@ -55,10 +55,10 @@ public class DevicesAdapter extends MvpRecyclerAdapter<Device, DevicesAdapter.Vi
         });
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tvName) TextView tvName;
-        @Bind(R.id.tvPin) TextView tvPin;
-        @Bind(R.id.swState) Switch swState;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public @Bind(R.id.tvName) TextView tvName;
+        public @Bind(R.id.tvPin) TextView tvPin;
+        public @Bind(R.id.swState) Switch swState;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
