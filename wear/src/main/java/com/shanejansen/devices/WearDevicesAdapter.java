@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by Shane Jansen on 3/11/16.
  */
-public class DevicesAdapter extends WearableListView.Adapter {
+public class WearDevicesAdapter extends WearableListView.Adapter {
     private Context mContext;
-    private List<Device> mDevices;
+    private List<WearDevice> mDevices;
     private DevicesAdapterInterface mDevicesAdapterInterface;
     private LayoutInflater mInflater;
 
-    public DevicesAdapter(Context context, List<Device> devices, DevicesAdapterInterface devicesAdapterInterface) {
+    public WearDevicesAdapter(Context context, List<WearDevice> devices, DevicesAdapterInterface devicesAdapterInterface) {
         this.mContext = context;
         this.mDevices = devices;
         this.mDevicesAdapterInterface = devicesAdapterInterface;

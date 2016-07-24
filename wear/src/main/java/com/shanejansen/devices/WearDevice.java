@@ -3,7 +3,7 @@ package com.shanejansen.devices;
 /**
  * Created by Shane Jansen on 3/6/16.
  */
-public class Device {
+public class WearDevice {
     private int pin;
     private String name, type;
     private boolean isOn;

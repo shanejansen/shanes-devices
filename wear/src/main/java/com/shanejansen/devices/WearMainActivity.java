@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends WearableActivity implements MessageApi.MessageListener {
+public class WearMainActivity extends WearableActivity implements MessageApi.MessageListener {
     // Constants
     public static final String TAG = "main";
     public static final String WEAR_GET_STATE = "get_state";
@@ -28,11 +28,11 @@ public class MainActivity extends WearableActivity implements MessageApi.Message
 
     // Instances
     private GoogleApiClient mGoogleApiClient;
-    private DevicesAdapter mDevicesAdapter;
+    private WearDevicesAdapter mDevicesAdapter;
     private ProgressBar pbLoading;
 
     // Data
-    private List<Device> mDevices;
+    private List<WearDevice> mDevices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,10 @@ public class MainActivity extends WearableActivity implements MessageApi.Message
         setupGoogleApiClient();
         setContentView(R.layout.activity_main);
         mDevices = new ArrayList<>();
-        mDevicesAdapter = new DevicesAdapter(this, mDevices, new DevicesAdapter.DevicesAdapterInterface() {
+        mDevicesAdapter = new WearDevicesAdapter(this, mDevices, new WearDevicesAdapter.DevicesAdapterInterface() {
             @Override
             public void switchToggled(int index, boolean isChecked) {
-                Device device = mDevices.get(index);
+                WearDevice device = mDevices.get(index);
                 device.setIsOn(isChecked);
                 sendMobileMessage(WEAR_SET_STATE, device.getPin() + " " + isChecked);
             }
@@ -60,7 +60,7 @@ public class MainActivity extends WearableActivity implements MessageApi.Message
             if (messageEvent.getData() != null) {
                 String json = new String(messageEvent.getData());
                 Gson gson = new Gson();
-                List<Device> devices = gson.fromJson(json, new TypeToken<ArrayList<Device>>() {
+                List<WearDevice> devices = gson.fromJson(json, new TypeToken<ArrayList<WearDevice>>() {
                 }.getType());
                 mDevices.clear();
                 mDevices.addAll(devices);
@@ -95,7 +95,7 @@ public class MainActivity extends WearableActivity implements MessageApi.Message
                     @Override
                     public void onConnected(Bundle bundle) {
                         Log.d(TAG, "onConnected: " + bundle);
-                        Wearable.MessageApi.addListener(mGoogleApiClient, MainActivity.this);
+                        Wearable.MessageApi.addListener(mGoogleApiClient, WearMainActivity.this);
                         sendMobileMessage(WEAR_GET_STATE, "");
                     }
 
